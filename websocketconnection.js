@@ -105,7 +105,7 @@ self.getOrigin = function()
 	
 var onMessage = function(message)
 	{
-	console.log("WebSocketConnection::onMessage() "+message);	
+	console.log("WebSocketConnection::onMessage() "+JSON.stringify(message));	
 	try	{
 		if (listener)
 			listener.onMessage(message.utf8Data, self);

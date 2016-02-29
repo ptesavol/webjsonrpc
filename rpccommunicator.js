@@ -71,6 +71,12 @@ self.connectionExists = function(connectionId)
 	else 
 		return false;
 	};
+	
+self.getConnection = function(connectionId)
+	{
+	return connections[connectionId];
+	};
+		
 //Outgoing RPC call
 
 self.callRpc =  function(method, params, object, listener, connectionId)

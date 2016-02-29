@@ -72,7 +72,7 @@ self.listen = function(opts, callback)
 			//webServer = https.createServer({ key: options.sslKey, cert: options.sslCert, ca: options.sslAuthCert}, function(request, response)
 			webServer = https.createServer({ key: key, cert: crt, ca: ca_crt}, function(request, response)
 				{
-				console.log("httpsServer::on(request)");		
+				logger.log("httpsServer::on(request)");		
 				response.writeHead(501);
 				response.end("Not implemented");
 				});
@@ -81,6 +81,7 @@ self.listen = function(opts, callback)
 		webServer.listen(options.port, options.host, 511, function()
 			{
 			console.log("webserver of websocketserver listening");
+			
 			callback(null, true);
 			});
 
