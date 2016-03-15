@@ -91,9 +91,9 @@ self.callRpc =  function(method, params, object, listener, connectionId)
 			console.log("RpcCommunicator::callRpc() pushed back callback");
 		
 			if (typeof connectionId !== "undefined")						
-				sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": callSequence}, connectionId);	
+				sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": ""+callSequence}, connectionId);	
 			else
-				sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": callSequence}, latestConnectionId);	//assume there is only one connection	
+				sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": ""+callSequence}, latestConnectionId);	//assume there is only one connection	
 		
 			console.log("RpcCommunicator::callRpc() sendMessage returned");
 			callSequence++;			
@@ -101,9 +101,9 @@ self.callRpc =  function(method, params, object, listener, connectionId)
 		else	
 			{											// notification: doesn't expect a response object
 			if (typeof connectionId != "undefined")
-				sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": null}, connectionId);
+				sendMessage({"jsonrpc": "2.0", "method": method, "params": params}, connectionId);
 			else
-				sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": null}, latestConnectionId);
+				sendMessage({"jsonrpc": "2.0", "method": method, "params": params}, latestConnectionId);
 			}
 		}
 	catch(e)
