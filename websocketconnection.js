@@ -151,6 +151,8 @@ self.send = function(message)
 		}	
 	};
 
+self.sendBinary = self.send;
+
 self.close = function()
 	{
 	try	{

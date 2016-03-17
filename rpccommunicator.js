@@ -158,7 +158,7 @@ var sendMessage = function(message, connectionId)
 		console.log(e);
 		}	
 	};
-
+self.sendMessage = sendMessage;	//for testing, remove this later
 // Send the return value of the RPC call to the caller  
 var sendResponse = function(err, result, id, connectionId)
 	{
