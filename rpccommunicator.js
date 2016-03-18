@@ -202,6 +202,7 @@ var handleRPCCall = function(message, connectionId)
 			if (message.id != null)
 				{
 				sendMessage({"jsonrpc": "2.0", "error": {"code": -32601, "message": "Method " + message.method + " not found."}, "id": message.id}, connectionId);
+				return;
 				}
 			else
 				{
