@@ -295,15 +295,35 @@ var generateRandomConnectionId = function()
 	return ret;	
 	}
 
+self.setupPipe = function(firstId, secondId)
+	{
+	console.log("RpcCommunicator::setupPipe() between: "+firstId+" and "+secondId);
+	
+	if (!connections.hasOwnProperty(firstId) || !connections.hasOwnProperty(secondId))  
+		return;
+	
+	connections[firstId].setPipedTo(secondId);
+	connections[secondId].setPipedTo(firstId);
+	};
 //** Downwards interface towards a connection
 
 //** MessageListener interface implementation
 
 self.onMessage = function(messageData, connection)
 	{
-	//console.log("RpcCommunicator::onMessage() "+messageData);
-
+	console.log("RpcCommunicator::onMessage() "+messageData);
+	console.log(typeof messageData);
 	try	{
+		var pipeTarget = connection.getPipedTo();
+		
+		if (pipeTarget != null)
+			{
+			console.log("RPCCommunicator::onMessage() relaying a piped message");
+			
+			connections[pipeTarget].send(messageData);
+			return;
+			}
+			
 		if (messageData instanceof ArrayBuffer)
 			{
 			//console.log("received arraybuffer ");

@@ -19,6 +19,7 @@ var remoteAddress = null;
 var remotePort = null;
 var origin = null;
 var listener = null;
+var pipedTo = null;
 
 //For client-side use, in both node and the browser
 
@@ -31,7 +32,8 @@ self.connect = function(options, callback)
 		if (options.id)
 			url += "?id="+options.id;
 		socket = new WebSocket(url, "json-rpc");
-			
+		
+		socket.binaryType = "arraybuffer";	
 		socket.onopen = function() {callback(null); }; 
 		socket.onmessage = onMessageEvent;
 		socket.onclose = function(reasonCode, description) {onSocketClosed(reasonCode, description, self);};	
@@ -62,6 +64,16 @@ self.setId = function(val)
 	{
 	id = val;	
 	};
+	
+self.setPipedTo = function(targetId)
+	{
+	pipedTo = targetId;
+	};
+	
+self.getPipedTo = function()
+	{
+	return pipedTo;
+	}	
 	
 self.setRemoteAddress = function(val) 
 	{
@@ -108,7 +120,12 @@ var onMessage = function(message)
 	console.log("WebSocketConnection::onMessage() "+JSON.stringify(message));	
 	try	{
 		if (listener)
-			listener.onMessage(message.utf8Data, self);
+			{
+			if (message.type == "utf8")
+				listener.onMessage(message.utf8Data, self);
+			if (message.type == "binary")
+				listener.onMessage(message.binaryData, self);
+			}
 		}
 	catch (e)
 		{
@@ -118,6 +135,7 @@ var onMessage = function(message)
 
 var onMessageEvent = function(event)
 	{
+	console.log("WebSocketConnection::onMessageEvent() " + JSON.stringify(event.data)); 
 	try	{
 		if (listener)
 			listener.onMessage(event.data, self);
