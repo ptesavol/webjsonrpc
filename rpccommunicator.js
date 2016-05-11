@@ -222,7 +222,7 @@ var handleRPCCall = function(message, connectionId)
 		if (message.id != null)		//It is a call		!!!!!!!!!!!!!!!! ToDO: fix this memory-hog! 
 			{
 			message.params.push(connectionId);      //add connectionId as the last parameter before callback
-			message.params.push(function(err,result) {sendResponse(err,result,message.id, connectionId);});
+			message.params.push(function(err,result) {sendResponse(err, result, message.id, connectionId);});
 			
 			rpcMethod.method.apply(rpcMethod.object, message.params);
 			}

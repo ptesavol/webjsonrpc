@@ -320,5 +320,16 @@ self.onIceCandidateReceived = function(iceCandidate)
             function () {console.log("WebRtcConnection::onIceCandidateReceived adding Ice candidate succeeded");},  
             function(err) {console.log("WebRtcConnection::onIceCandidateReceived adding Ice candidate failed "+err);});
 	};         	
+
+// Dummy implementation for websocket compatibility
+
+self.setPipedTo = function(targetId)
+	{
+	};
+	
+self.getPipedTo = function()
+	{
+	return null;
+	};	
 	
 }
