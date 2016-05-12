@@ -19,7 +19,7 @@ var self = this;
 var listHead = null;
 var listTail = null;
 
-var listSize = 10;
+var listSize = 1000;
 var dataSize = 0;
 
 var backupNode = null;
