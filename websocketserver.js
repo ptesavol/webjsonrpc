@@ -65,9 +65,9 @@ self.listen = function(opts, callback)
 			{
 			console.log("Trying to start https server: "+ JSON.stringify({ key: options.sslKey, cert: options.sslCert, ca: options.sslAuthCert}));
 			
-			var key = fs.sync.readFile(options.sslKey);
-			var crt = fs.sync.readFile(options.sslCert);
-			var ca_crt = fs.sync.readFile(options.sslAuthCert, "utf8");
+			var key = fs.readFileSync(options.sslKey);
+			var crt = fs.readFileSync(options.sslCert);
+			var ca_crt = fs.readFileSync(options.sslAuthCert, "utf8");
 			
 			//webServer = https.createServer({ key: options.sslKey, cert: options.sslCert, ca: options.sslAuthCert}, function(request, response)
 			webServer = https.createServer({ key: key, cert: crt, ca: ca_crt}, function(request, response)
