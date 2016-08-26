@@ -1,11 +1,27 @@
 "use strict";
 
-var RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-var RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription || window.webkitRTCSessionDescription;
-var RTCIceCandidate = window.RTCIceCandidate || window.mozRTCIceCandidate || window.webkitRTCIceCandidate;
+
      		
 function WebRtcConnection(rtcConfig)
 {
+var RTCPeerConnection = null;
+var RTCSessionDescription = null;
+var RTCIceCandidate = null;
+
+if (typeof exports !== "undefined")
+	{
+	RTCPeerConnection = global.RTCPeerConnection;
+	RTCSessionDescription = global.RTCSessionDescription;
+	RTCIceCandidate = global.RTCIceCandidate;
+	}
+else
+	{	
+	RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+	RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription || window.webkitRTCSessionDescription;
+	RTCIceCandidate = window.RTCIceCandidate || window.mozRTCIceCandidate || window.webkitRTCIceCandidate;
+    }
+
+
 var self = this;
 var id = null;
 var partnerId = null;
@@ -83,8 +99,12 @@ self.close = function()
 	{
 	console.log("WebRtcConnection::close");	
 	//peerConnection.removeStream(ownStream);
-	dataChannel.close();
-	if (peerConnection.signalingState != "closed")
+	   
+	
+	//if (dataChannel && dataChannel.readyState != "closing" && dataChannel.readyState != "closed")
+	//	dataChannel.close();
+	
+	if (peerConnection.signalingState != "closed" || peerConnection.signalingState != "closing")
 		peerConnection.close();
 	}
 
@@ -333,3 +353,8 @@ self.getPipedTo = function()
 	};	
 	
 }
+
+if (typeof exports !== "undefined")
+	{
+	module.exports = WebRtcConnection;	
+	}

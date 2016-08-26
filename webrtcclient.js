@@ -208,3 +208,8 @@ self.run = function(announceId, callback)
         	
 	};			
 }
+
+if (typeof exports !== "undefined")
+	{
+	module.exports = WebRtcClient;	
+	}
