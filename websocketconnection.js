@@ -1,18 +1,31 @@
 "use strict";
 
-//Include only in node, not in browser
 
-if (typeof exports !== "undefined")
-	{
-	//global.WebSocket = require("websocket").client;
-	global.WebSocket = require("websocket").w3cwebsocket;
-	global.logger = require("winston");
-	}
 	
 function WebSocketConnection()
 {
 var self = this;
 
+//Includes
+
+var WebSocket = null;
+
+if (typeof exports !== "undefined")
+	{
+	//global.WebSocket = require("websocket").client;
+	WebSocket = require("websocket");
+	//global.logger = require("winston");
+	}
+
+if (typeof window !== "undefined")
+	{
+	WebSocket = window.WebSocket;
+	}
+else
+	{
+	WebSocket = WebSocket.w3cwebsocket;
+	}	
+	
 var socket = null;
 var id = null;
 var remoteAddress = null;

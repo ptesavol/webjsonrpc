@@ -1,16 +1,27 @@
 "use strict";
 
-// Includes
-if (typeof exports !== "undefined")
-        {
-        global.RpcCommunicator = require("./rpccommunicator");
-        global.WebSocketConnection = require("./websocketconnection");
-        }
         
 function WebSocketRpcConnection()
 {
 var self = this;
 
+
+// Includes
+
+var RpcCommunicator = null;
+var WebSocketConnection = null;
+
+if (typeof exports !== "undefined")
+    {
+	RpcCommunicator = require("./rpccommunicator");
+	WebSocketConnection = require("./websocketconnection");
+	}
+else
+	{
+	RpcCommunicator	= window.RpcCommunicator;
+	WebSocketConnection = window.WebSocketConnection;
+	}    
+	
 var connection = new WebSocketConnection();
 var communicator = new RpcCommunicator();	
 

@@ -1,13 +1,6 @@
 "use strict";
 
-// Do this only in node.js, not in the browser
-
-if (typeof exports !== "undefined")
-	{
-	global.CallbackBuffer = require("./callbackbuffer");
-	}
 		
-
 /* 
 * A class that implements the JSON-RPC 2.0 protocol.
 * Communicates with the outside world with WebSocketConnection or WebRTCConnection objects
@@ -17,6 +10,20 @@ if (typeof exports !== "undefined")
 function RpcCommunicator()
 {
 var self = this;
+
+// Includes
+
+var CallbackBuffer = null;
+
+if (typeof exports !== "undefined")
+	{
+	CallbackBuffer = require("./callbackbuffer");
+	}
+else
+	{
+	CallbackBuffer = window.CallbackBuffer;
+	}	
+
 
 var callSequence = 1;
 var exposedRpcMethods = new Object();
