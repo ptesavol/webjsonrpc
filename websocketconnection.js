@@ -148,7 +148,7 @@ var onMessage = function(message)
 
 var onMessageEvent = function(event)
 	{
-	console.log("WebSocketConnection::onMessageEvent() " + JSON.stringify(event.data)); 
+	//console.log("WebSocketConnection::onMessageEvent() " + JSON.stringify(event.data)); 
 	try	{
 		if (listener)
 			listener.onMessage(event.data, self);

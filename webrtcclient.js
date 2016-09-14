@@ -9,6 +9,26 @@ function WebRtcClient(serverAddress, rtcConfig)
 {
 var self = this;
 
+// Includes
+
+var WebRtcConnection = null;
+var WebSocketConnection = null;
+var RpcCommunicator = null;
+
+if (typeof exports !== "undefined")
+    {
+	WebRtcConnection = require("./webrtcconnection");
+	WebSocketConnection = require("./websocketconnection");
+	RpcCommunicator = require("./rpccommunicator");
+	}
+else
+	{
+	WebRtcConnection = window.WebRtcConnection;
+	WebSocketConnection = window.WebSocketConnection;
+	RpcCommunicator = window.RpcCommunicator;
+	}    
+
+
 var connection = new WebSocketConnection();
 var communicator = new RpcCommunicator();
 

@@ -8,7 +8,7 @@ var RTCPeerConnection = null;
 var RTCSessionDescription = null;
 var RTCIceCandidate = null;
 
-if (typeof exports !== "undefined")
+if (typeof window == "undefined")
 	{
 	RTCPeerConnection = global.RTCPeerConnection;
 	RTCSessionDescription = global.RTCSessionDescription;

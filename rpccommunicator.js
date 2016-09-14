@@ -318,8 +318,8 @@ self.setupPipe = function(firstId, secondId)
 
 self.onMessage = function(messageData, connection)
 	{
-	console.log("RpcCommunicator::onMessage() "+messageData);
-	console.log(typeof messageData);
+	//console.log("RpcCommunicator::onMessage() "+messageData);
+	//console.log(typeof messageData);
 	try	{
 		var pipeTarget = connection.getPipedTo();
 		
