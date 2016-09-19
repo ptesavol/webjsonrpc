@@ -44,8 +44,8 @@ self.connect = function(options, callback)
 		var url = options.protocol + "://" + options.host + ":" + options.port + "/"+"json-rpc";
 		if (options.id)
 			url += "?id="+options.id;
-		socket = new WebSocket(url, "json-rpc");
-		
+		socket = new WebSocket(url, "json-rpc", null, null, (options.isSsl ? { rejectUnauthorized: false } : null));
+
 		socket.binaryType = "arraybuffer";	
 		socket.onopen = function() {callback(null); }; 
 		socket.onmessage = onMessageEvent;
