@@ -95,14 +95,14 @@ self.callRpc =  function(method, params, object, listener, connectionId)
 			{
 			callbackBuffer.pushBack(callSequence, object, listener);
 		
-			console.log("RpcCommunicator::callRpc() pushed back callback");
+			//console.log("RpcCommunicator::callRpc() pushed back callback");
 		
 			if (typeof connectionId !== "undefined")						
 				sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": ""+callSequence}, connectionId);	
 			else
 				sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": ""+callSequence}, latestConnectionId);	//assume there is only one connection	
 		
-			console.log("RpcCommunicator::callRpc() sendMessage returned");
+			//console.log("RpcCommunicator::callRpc() sendMessage returned");
 			callSequence++;			
 			}
 		else	
@@ -125,10 +125,10 @@ self.notifyAll =  function(method, params)
 	try	{
 		for (var key in connections)
 			{
-			console.log("RpcCommunicator::notifyAll() sending message to "+key);
+			//console.log("RpcCommunicator::notifyAll() sending message to "+key);
 			sendMessage({"jsonrpc": "2.0", "method": method, "params": params, "id": null}, key);
 			}
-		console.log("RpcCommunicator::notifyAll() sending messages completed");
+		//console.log("RpcCommunicator::notifyAll() sending messages completed");
 		}
 	catch(e)
 		{
@@ -250,7 +250,7 @@ var handleRPCCall = function(message, connectionId)
 // Handle an incoming return value for a RPC call that we have made previously
 var handleReturnValue = function(message)
 	{
-	console.log(message);
+	//console.log(message);
 	try	{
 		var error = null;
 		var result = null;
@@ -325,7 +325,7 @@ self.onMessage = function(messageData, connection)
 		
 		if (pipeTarget != null)
 			{
-			console.log("RPCCommunicator::onMessage() relaying a piped message");
+			//console.log("RPCCommunicator::onMessage() relaying a piped message");
 			
 			connections[pipeTarget].send(messageData);
 			return;
